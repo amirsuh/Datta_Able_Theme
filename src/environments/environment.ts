@@ -3,7 +3,15 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  url: {
+    userManagement: "http://192.168.6.200:8654/user-management",
+    editRights: "http://192.168.6.200:8655/edit-rights",
+    financialPort: "http://192.168.6.200:8656/financial-portal",
+    refundPortal: "http://192.168.6.200:8659/kli-refund",
+  },
+  oauthClientId: "fooClientId",
+  oauthClientSecret: "secret"
 };
 
 /*

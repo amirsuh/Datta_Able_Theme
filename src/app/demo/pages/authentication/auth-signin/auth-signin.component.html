@@ -6,28 +6,36 @@
       <span class="r s"></span>
       <span class="r"></span>
     </div>
+
     <div class="card">
-      <div class="card-body text-center">
-        <div class="mb-4">
-          <i class="feather icon-unlock auth-icon"></i>
-        </div>
-        <h3 class="mb-4">Login</h3>
+      <div class="card-body text-center" style="padding: 1.25rem;">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div class="outer">
+
+            <span></span>
+            <img class="Centered" src="../../../../../assets/images/k-logoo.png" alt="Kotak Life Logo"
+              style="width: 165px; height: 45px;margin-bottom: 35px
+              ;">
+          </div>
+        <h3 class="mb-4 left-align">Login</h3>
+        <p class="text-muted left-align">Sign In to your account</p>
+        <p> {{errorMessage}} </p>
         <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email">
+          <input type="text" class="form-control" placeholder="username" formControlName="username">
+          <div class="errorLabel" *ngIf="loginForm.get('username').hasError('required') && loginForm.get('username').touched">
+             User name is required</div>
         </div>
         <div class="input-group mb-4">
-          <input type="password" class="form-control" placeholder="Password">
+          <input type="password" class="form-control" placeholder="Password" formControlName="password">
+          <div class="errorLabel" *ngIf="loginForm.get('password').hasError('required') && loginForm.get('password').touched">
+            Password is required</div>
         </div>
-        <div class="form-group text-left">
-          <div class="checkbox checkbox-fill d-inline">
-            <input type="checkbox" name="checkbox-fill-1" id="checkbox-fill-a1" checked="">
-            <label for="checkbox-fill-a1" class="cr"> Save Details</label>
-          </div>
-        </div>
-        <button class="btn btn-primary mb-4">Login</button>
-        <p class="mb-2 text-muted">Forgot password? <a [routerLink]="['/auth/reset-password']">Reset</a></p>
-        <p class="mb-0 text-muted">Don’t have an account? <a [routerLink]="['/auth/signup']">Sign up</a></p>
+        <button class="btn btn-primary mb-4" [disabled]="!loginForm.valid">Login</button>
+      </form>
+      <span>Powered by <a href="https://www.mindcraft.in/">MindCraft Software Pvt.
+        Ltd.</a></span>
       </div>
+
     </div>
   </div>
 </div>

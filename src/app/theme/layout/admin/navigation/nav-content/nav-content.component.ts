@@ -1,8 +1,27 @@
 import {AfterViewInit, Component, ElementRef, EventEmitter, NgZone, OnInit, Output, ViewChild} from '@angular/core';
-import {NavigationItem} from '../navigation';
+// import {NavigationItem} from '../navigation';
 import {DattaConfig} from '../../../../../app-config';
 import {Location} from '@angular/common';
-
+import { LoginService } from 'src/app/demo/pages/authentication/service/login.service';
+import { UserService } from 'src/app/demo/pages/authentication/service/user.service';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import 'rxjs/add/operator/filter';
+export interface INavData {
+  name?: string;
+  mnuCode?: string;
+  dispName?: string;
+  actnUrl?: string;
+  url?: string;
+  href?: string;
+  icon?: string;
+  // badge?: INavBadge;
+  title?: boolean;
+  children?: INavData[];
+  variant?: string;
+  // attributes?: INavAttributes;
+  divider?: boolean;
+  class?: string;
+}
 @Component({
   selector: 'app-nav-content',
   templateUrl: './nav-content.component.html',
@@ -23,11 +42,48 @@ export class NavContentComponent implements OnInit, AfterViewInit {
   @ViewChild('navbarContent', {static: false}) navbarContent: ElementRef;
   @ViewChild('navbarWrapper', {static: false}) navbarWrapper: ElementRef;
 
-  constructor(public nav: NavigationItem, private zone: NgZone, private location: Location) {
+  public sidebarMinimized = false;
+  public navItems: INavData[] = [];
+  userPrivilege;
+  isApp;
+  menus
+  //: INavData[] = [];
+  routeName;
+  sideBarElem;
+
+  constructor( private zone: NgZone, private location: Location,private loginService: LoginService,
+    private router: Router, private userService: UserService, private route: ActivatedRoute) {
+      this.userService.removeSidebar().subscribe(res=>{
+        if(res!=null || res!=undefined){
+          this.sideBarElem=res;
+        }
+        else{
+          this.sideBarElem=false;
+        }
+
+
+      })
+      console.log(this.sideBarElem)
+      // get User Details with the help of localstorage Added By Amir on 12-02-2021 Start
+      this.userPrivilege = JSON.parse(localStorage.getItem('userDetails'))
+      // get User Details with the help of localstorage Added By Amir on 12-02-2021 End
+
+      // get User current RouterLink with the help of Router.url Added By Amir on 12-02-2021 Start
+
+      this.router.events.filter(event => event instanceof NavigationEnd).subscribe((event: NavigationEnd) => {
+console.log(event.url)
+        if ((event.url == '/' || event.url =='/auth/signin' )) {
+          this.navItems = []
+        }
+        else {
+          this.getSidebarUrls()
+        }
+      });
+
     this.dattaConfig = DattaConfig.config;
     this.windowWidth = window.innerWidth;
 
-    this.navigation = this.nav.get();
+    // this.navigation = this.nav.get();
     this.prevDisabled = 'disabled';
     this.nextDisabled = '';
     this.scrollWidth = 0;
@@ -35,6 +91,8 @@ export class NavContentComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+
+
     if (this.windowWidth < 992) {
       this.dattaConfig['layout'] = 'vertical';
       setTimeout(() => {
@@ -42,6 +100,68 @@ export class NavContentComponent implements OnInit, AfterViewInit {
         (document.querySelector('#nav-ps-datta') as HTMLElement).style.maxHeight = '100%';
       }, 500);
     }
+  }
+
+  getSidebarUrls() {
+
+    this.userService.getAppDetails().subscribe(res => {
+      this.isApp=res;
+      localStorage.setItem("appCode", this.isApp);
+
+      this.menus = []
+      if (this.userPrivilege.application.length != 0) {
+        for (let i = 0; i < this.userPrivilege.application.length; i++) {
+          if (this.isApp == null) {
+
+              this.isApp = this.userPrivilege.application[0].appCode
+            }
+          else{
+            this.isApp=res;
+          }
+          if (this.userPrivilege.application[i].appCode == this.isApp) {
+            let prntMnuList=this.userPrivilege.application[i].menu;
+            prntMnuList.sort((a,b) => a.srtOrd > (b.srtOrd));
+            for (let j = 0; j < prntMnuList.length; j++) {
+              let test = {
+                    id:  prntMnuList[j].dispName,
+                    title:  prntMnuList[j].dispName,
+                    type: 'item',
+                    url: prntMnuList[j].actnUrl,
+                    icon: 'feather icon-home',
+                    classes: 'nav-item',
+
+              }
+              let childMenuList=prntMnuList[j].childMenu;
+              if(childMenuList && childMenuList.length>0)
+              {
+                test["children"]=[]
+                childMenuList.sort((a,b) => a.srtOrd > (b.srtOrd));
+                for (let k= 0; k < childMenuList.length; k++) {
+                  let child = {
+                    name: childMenuList[k].dispName,
+                    url: childMenuList[k].actnUrl,
+                    icon: 'icon-pencil',
+                    // attributes: { disabled: true }
+                  }
+                  test["children"].push(child)
+              }
+            }
+              this.menus.push(test);
+            }
+          }
+          else {
+            this.navItems = []
+          }
+        }
+        this.navigation = this.menus;
+        console.log(this.navigation)
+        this.navItems = this.menus;
+      }
+      else {
+        this.menus=[]
+        this.navItems = []
+      }
+    })
   }
 
   ngAfterViewInit() {
