@@ -1,0 +1,207 @@
+<div class="row">
+  <div class="col-md-3 col-xl-3">
+    <div class="card card-border">
+      <div class="card-body info-color text-center">
+        <i class="ion-refresh rf_icon" aria-hidden="true" (click)="refreshStats()"></i>
+        <div class="text-value" style="color: white;">Today</div>
+      </div>
+      <div class="card-footer">
+        <div class="row">
+          <div class="col-md-4 border-right text-center font-weight-bold">
+            <div class="text-value">28K</div>
+            <div class="text-uppercase text-muted smal">Total</div>
+          </div>
+          <div class="col-md-4 border-left text-center font-weight-bold">
+            <div class="text-value">36K</div>
+            <div class="text-uppercase text-muted smal">Succcess</div>
+          </div>
+          <div class="col-md-4 border-left text-center font-weight-bold">
+            <div class="text-value">36K</div>
+            <div class="text-uppercase text-muted smal">Failure</div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 col-xl-3">
+    <div class="card card-border">
+      <div class="card-body infob-color text-center">
+        <i class="ion-refresh rf_icon" aria-hidden="true" (click)="refreshStats()"></i>
+        <div class="text-value" style="color: white;">Week</div>
+      </div>
+      <div class="card-footer">
+        <div class="row">
+          <div class="col-md-4 border-right text-center font-weight-bold">
+            <div class="text-value">28K</div>
+            <div class="text-uppercase text-muted smal">Total</div>
+          </div>
+          <div class="col-md-4 border-left text-center font-weight-bold">
+            <div class="text-value">36K</div>
+            <div class="text-uppercase text-muted smal">Succcess</div>
+          </div>
+          <div class="col-md-4 border-left text-center font-weight-bold">
+            <div class="text-value">36K</div>
+            <div class="text-uppercase text-muted smal">Failure</div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 col-xl-3">
+    <div class="card card-border">
+      <div class="card-body info-color text-center">
+        <i class="ion-refresh rf_icon" aria-hidden="true" (click)="refreshStats()"></i>
+        <div class="text-value" style="color: white;">Last Week</div>
+      </div>
+      <div class="card-footer">
+        <div class="row">
+          <div class="col-md-4 border-right text-center font-weight-bold">
+            <div class="text-value">28K</div>
+            <div class="text-uppercase text-muted smal">Total</div>
+          </div>
+          <div class="col-md-4 border-left text-center font-weight-bold">
+            <div class="text-value">36K</div>
+            <div class="text-uppercase text-muted smal">Succcess</div>
+          </div>
+          <div class="col-md-4 border-left text-center font-weight-bold">
+            <div class="text-value">36K</div>
+            <div class="text-uppercase text-muted smal">Failure</div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 col-xl-3">
+    <div class="card card-border">
+      <div class="card-body infos-color text-center">
+        <i class="ion-refresh rf_icon" aria-hidden="true" (click)="refreshStats()"></i>
+        <div class="text-value" style="color: white;">Month</div>
+      </div>
+      <div class="card-footer">
+        <div class="row">
+          <div class="col-md-4 border-right text-center font-weight-bold">
+            <div class="text-value">28K</div>
+            <div class="text-uppercase text-muted smal">Total</div>
+          </div>
+          <div class="col-md-4 border-left text-center font-weight-bold">
+            <div class="text-value">36K</div>
+            <div class="text-uppercase text-muted smal">Succcess</div>
+          </div>
+          <div class="col-md-4 border-left text-center font-weight-bold">
+            <div class="text-value">36K</div>
+            <div class="text-uppercase text-muted smal">Failure</div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-9">
+    <div class="card">
+      <div class="card-header">
+      </div>
+      <div class="card-body">
+        <form [formGroup]="SearchForm">
+          <div class="row">
+            <div class="form-group col-3 col-lg-3">
+              <label>Plan Code</label>
+              <select id="planCode" name="planCode" class="form-control" formControlName="planCode">
+                <option value=''>-- Select --</option>
+                <option value='{{status}}' *ngFor="let status of planCode">{{status}}</option>
+              </select>
+            </div>
+            <div class="form-group col-3 col-lg-3">
+              <label>Status </label>
+              <select id="status" name="status" class="form-control" formControlName="status">
+                <option value=''>-- Select --</option>
+                <option value='{{status.lookupId}}' *ngFor="let status of statusData">{{status.lngName}}</option>
+              </select>
+            </div>
+
+
+            <label for="date-input"></label>
+            <div style="margin-top: 28px;">
+
+              <button type="submit" class="btn btn-primary fnt" (click)="onSubmit()"><i class="fa fa-search"></i>
+                Search</button>
+              <button type="reset" (click)="onReset()" class="btn btn-secondary fnt" style="margin-left: 6px;">
+                <i class="fa fa-eraser" aria-hidden="true"></i>
+                Clear</button>
+            </div>
+          </div>
+        </form>
+        <div class="card mat-elevation-z8 data-table">
+          <div class="d-flex justify-content-center" *ngIf="isloading">
+            <div class="spinner-border loader_card-global" role="status">
+            </div>
+          </div>
+          <table mat-table [dataSource]="dataSource" matSort>
+            <!-- Position Column -->
+            <!-- Name Column -->
+            <ng-container matColumnDef="proposalNumber">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Proposal No </th>
+              <td mat-cell *matCellDef="let element"><a (click)="onClick(element,'')"
+                  class="color-link">{{element?.proposalNumber || '-'}}</a>
+              </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="planCode">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Plan Code </th>
+              <td mat-cell *matCellDef="let element"> {{element?.planCode || '-'}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="createdDate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+              <td mat-cell *matCellDef="let element"> {{(element.createdDate | dateFormatPipe) || '-'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="ageing">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Ageing </th>
+              <td mat-cell *matCellDef="let element"> {{(element.ageing | dateageing) || '-'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+              <td mat-cell *matCellDef="let element"> {{element.status || '-'}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+            <ng-container matColumnDef="mpn">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> MPN </th>
+              <td mat-cell *matCellDef="let element">
+                {{element.mpn || '-'}} </td>
+            </ng-container>
+          </table>
+
+          <mat-paginator #paginator [length]="pageIndex" [pageSizeOptions]="[5, 10, 20]" [pageSize]="5"
+            showFirstLastButtons>
+          </mat-paginator>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-3">
+    <div class="card" style="height: 282px;">
+      <div class="card-header">
+      </div>
+      <div class="card-body">
+        <label for="prpslNumber">Proposal Number</label>
+        <input type="text" class="form-control" id="prpslNumber" [(ngModel)]="prpslNumber"
+          placeholder="Enter Proposal Number">
+        <button type="submit" style="margin-top: 10px;" class="btn btn-sm btn-primary" type="submit"
+          (click)="onsubmitSearchPropo()"><i class="fa fa-dot-circle-o"></i>
+          Search</button>
+      </div>
+    </div>
+  </div>
+</div>

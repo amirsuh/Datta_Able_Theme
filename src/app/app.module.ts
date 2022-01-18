@@ -40,7 +40,7 @@ import { AuthInterceptorService } from './demo/pages/authentication/service/auth
     NavLeftComponent,
     NavSearchComponent,
     NavRightComponent,
-    ConfigurationComponent
+    ConfigurationComponent,
   ],
   imports: [
     BrowserAnimationsModule,

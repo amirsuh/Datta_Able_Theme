@@ -51,7 +51,7 @@ export class AuthSigninComponent implements OnInit {
           let action = 'close'
           // this.snackBar.success(content, action)
           this.loginForm.reset();
-          this.router.navigate(['/dashboard/default']);
+          this.router.navigate(['/financial-portal']);
         }, error => {
           console.log("error error error")
           this.handleError(error);
@@ -78,6 +78,7 @@ export class AuthSigninComponent implements OnInit {
     // debugger;
     console.log(error);
     if (error.error.error === "unauthorized" && error.error.error_description.startsWith("USER_LOGED_IN")) {
+
       let token = error.error.error_description.split("||")[1];
       console.log(token);
 

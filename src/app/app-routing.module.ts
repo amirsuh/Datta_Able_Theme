@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGaurdService } from './demo/pages/authentication/service/auth-gaurd.service';
 import { AdminComponent } from './theme/layout/admin/admin.component';
 import { AuthComponent } from './theme/layout/auth/auth.component';
 
@@ -36,6 +37,11 @@ const routes: Routes = [
       {
         path: 'sample-page',
         loadChildren: () => import('./demo/extra/sample-page/sample-page.module').then(m => m.SamplePageModule)
+      },
+      {
+        path: 'financial-portal',
+        loadChildren: () => import('./financial-portal/financial-portal.module').then(m => m.FinancialPortalModule),
+        canActivate: [AuthGaurdService]
       }
     ]
   },
