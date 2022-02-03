@@ -51,7 +51,7 @@ export class AuthSigninComponent implements OnInit {
           let action = 'close'
           // this.snackBar.success(content, action)
           this.loginForm.reset();
-          this.router.navigate(['/financial-portal']);
+          this.router.navigate(['/dashboard/default']);
         }, error => {
           console.log("error error error")
           this.handleError(error);

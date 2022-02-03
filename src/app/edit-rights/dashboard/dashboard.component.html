@@ -1,0 +1,239 @@
+<div class="row">
+  <div class="col-md-3 col-xl-3">
+    <div class="card card-border">
+      <div class="card-body info-color text-center">
+        <div class="d-flex justify-content-center" *ngIf="showSpinner1">
+          <div class="spinner-border loader_card_global_card" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+        <i class="fas fa-sync-alt rf_icon" aria-hidden="true" *ngIf="!showSpinner1" (click)="refreshStats()"></i>
+        <div class="text-value" style="color: white;" *ngIf="!showSpinner1">Today</div>
+      </div>
+      <div class="card-footer">
+        <div class="row">
+          <div class="col-md-4 border-right text-center font-weight-bold">
+            <div class="text-value">{{Status?.cntTodayTotal || '-'}}</div>
+            <div class="text-uppercase text-muted smal">Total</div>
+          </div>
+          <div class="col-md-4 border-left text-center font-weight-bold">
+            <div class="text-value">{{Status?.cntTodaySuccess || '-'}}</div>
+            <div class="text-uppercase text-muted smal">Succcess</div>
+          </div>
+          <div class="col-md-4 border-left text-center font-weight-bold">
+            <div class="text-value">{{Status?.cntTodayFailure || '-'}}</div>
+            <div class="text-uppercase text-muted smal">Failure</div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 col-xl-3">
+    <div class="card card-border">
+      <div class="card-body infob-color text-center">
+        <div class="d-flex justify-content-center" *ngIf="showSpinner1">
+          <div class="spinner-border loader_card_global_card" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+        <i class="fas fa-sync-alt rf_icon" aria-hidden="true" *ngIf="!showSpinner1" (click)="refreshStats()"></i>
+        <div class="text-value" style="color: white;" *ngIf="!showSpinner1">Week</div>
+      </div>
+      <div class="card-footer">
+        <div class="row">
+          <div class="col-md-4 border-right text-center font-weight-bold">
+            <div class="text-value">{{Status?.cntWeekTotal || '-'}}</div>
+            <div class="text-uppercase text-muted smal">Total</div>
+          </div>
+          <div class="col-md-4 border-left text-center font-weight-bold">
+            <div class="text-value">{{Status?.cntWeekSuccess || '-'}}</div>
+            <div class="text-uppercase text-muted smal">Succcess</div>
+          </div>
+          <div class="col-md-4 border-left text-center font-weight-bold">
+            <div class="text-value">{{Status?.cntWeekFailure || '-'}}</div>
+            <div class="text-uppercase text-muted smal">Failure</div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 col-xl-3">
+    <div class="card card-border">
+      <div class="card-body info-color text-center">
+        <div class="d-flex justify-content-center" *ngIf="showSpinner1">
+          <div class="spinner-border loader_card_global_card" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+        <i class="fas fa-sync-alt rf_icon" aria-hidden="true" *ngIf="!showSpinner1" (click)="refreshStats()"></i>
+        <div class="text-value" style="color: white;" *ngIf="!showSpinner1">Last Week</div>
+      </div>
+      <div class="card-footer">
+        <div class="row">
+          <div class="col-md-4 border-right text-center font-weight-bold">
+            <div class="text-value">{{Status?.cntLsWeekTotal || '-'}}</div>
+            <div class="text-uppercase text-muted smal">Total</div>
+          </div>
+          <div class="col-md-4 border-left text-center font-weight-bold">
+            <div class="text-value">{{Status?.cntLsWeekSuccess || '-'}}</div>
+            <div class="text-uppercase text-muted smal">Succcess</div>
+          </div>
+          <div class="col-md-4 border-left text-center font-weight-bold">
+            <div class="text-value">{{Status?.cntLsWeekFailure || '-'}}</div>
+            <div class="text-uppercase text-muted smal">Failure</div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 col-xl-3">
+    <div class="card card-border">
+      <div class="card-body infos-color text-center">
+        <div class="d-flex justify-content-center" *ngIf="showSpinner1">
+          <div class="spinner-border loader_card_global_card" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+        <i class="fas fa-sync-alt rf_icon" aria-hidden="true" *ngIf="!showSpinner1" (click)="refreshStats()"></i>
+        <div class="text-value" style="color: white;" *ngIf="!showSpinner1">Month</div>
+      </div>
+      <div class="card-footer">
+        <div class="row">
+          <div class="col-md-4 border-right text-center font-weight-bold">
+            <div class="text-value">{{Status?.cntMonthTotal || '-'}}</div>
+            <div class="text-uppercase text-muted smal">Total</div>
+          </div>
+          <div class="col-md-4 border-left text-center font-weight-bold">
+            <div class="text-value">{{Status?.cntMonthSuccess || '-'}}</div>
+            <div class="text-uppercase text-muted smal">Succcess</div>
+          </div>
+          <div class="col-md-4 border-left text-center font-weight-bold">
+            <div class="text-value">{{Status?.cntMonthFailure || '-'}}</div>
+            <div class="text-uppercase text-muted smal">Failure</div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-9">
+    <div class="card">
+      <div class="card-header">
+      </div>
+      <div class="card-body">
+        <form [formGroup]="proposalListFilterForm">
+
+          <div class="row">
+            <div class="form-group col-3 col-lg-3">
+              <label for="startDate">Start Date</label>
+              <input class="form-control" id="startDate" formControlName="startDate" type="date"
+                name="startDate" placeholder="date"
+                [ngClass]="{ 'is-invalid': submitted && f.startDate.errors }">
+                <div *ngIf="submitted && f.startDate.errors" class="invalid-feedback">
+                  <div *ngIf="f.startDate.errors.required">Please Enter Proposal Number</div>
+                </div>
+            </div>
+            <div class="form-group col-3 col-lg-3">
+              <label for="endDate">End Date</label>
+              <input class="form-control" id="endDate" formControlName="endDate" type="date"
+                name="endDate" placeholder="date"
+                [ngClass]="{ 'is-invalid': submitted && f.endDate.errors }">
+                <div *ngIf="submitted && f.endDate.errors" class="invalid-feedback">
+                  <div *ngIf="f.endDate.errors.required">Please Enter Proposal Number</div>
+                </div>
+            </div>
+            <div class="form-group col-3 col-lg-3">
+              <label for="proposalNumber">Proposal Number</label>
+              <div>
+                <input type="text" class="form-control" id="proposalNumber" formControlName="proposalNumber"
+                  placeholder="Enter  Proposal Number"
+                  [ngClass]="{ 'is-invalid': submitted && f.proposalNumber.errors }">
+                <div *ngIf="submitted && f.proposalNumber.errors" class="invalid-feedback">
+                  <div *ngIf="f.proposalNumber.errors.required">Please Enter Proposal Number</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-2 col-lg-3">
+              <label for="date-input"></label>
+              <div style="margin-top: 12px;">
+                <button type="submit" class="btn btn-sm btn-primary" (click)="searchEditRightRequestData()"
+                  [disabled]="!proposalListFilterForm.value.proposalNumber && (!proposalListFilterForm.value.startDate || !proposalListFilterForm.value.endDate)" type="submit">
+                  <i class="fa fa-dot-circle-o"></i>
+                  Search</button>
+                  <button type="submit" class="btn btn-sm btn-danger margin-left" (click)="clearSearch()"
+                  type="submit">
+                  <i class="fa fa-dot-circle-o"></i>
+                  Clear</button>
+              </div>
+            </div>
+          </div>
+        </form>
+        <div class="card mat-elevation-z8 data-table">
+          <div class="d-flex justify-content-center"  *ngIf="isloading">
+            <div class="spinner-border loader_card-global" role="status">
+            </div>
+          </div>
+          <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event,dataSource)">
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="rqstNmbr">
+              <th mat-header-cell *matHeaderCellDef > Request Number </th>
+              <td mat-cell *matCellDef="let element" class="color-link">
+                <a (click)="gotosaveEditRightsWithRequestNumber(element.rqstNmbr)"  >{{element?.rqstNmbr || '-'}}</a></td>
+            </ng-container>
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="prpslNmbr">
+              <th mat-header-cell *matHeaderCellDef > Proposal Number </th>
+              <td mat-cell *matCellDef="let element" > {{element?.prpslNmbr || '-'}} </td>
+            </ng-container>
+            <ng-container matColumnDef="catName">
+              <th mat-header-cell *matHeaderCellDef > Category </th>
+              <td mat-cell *matCellDef="let element"> {{element?.catName || '-'}} </td>
+            </ng-container>
+            <ng-container matColumnDef="subCatName">
+              <th mat-header-cell *matHeaderCellDef > Sub-Category </th>
+              <td mat-cell *matCellDef="let element"> {{element?.subCatName || '-'}} </td>
+            </ng-container>
+            <ng-container matColumnDef="stsName">
+              <th mat-header-cell *matHeaderCellDef > Status </th>
+              <td mat-cell *matCellDef="let element"> {{element?.stsName  || '-'}} </td>
+            </ng-container>
+            <ng-container matColumnDef="createdOn">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Created On </th>
+              <td mat-cell *matCellDef="let element"> {{(element?.createdOn | dateFormatPipe) || '-'}} </td>
+            </ng-container>
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="completedDate">
+              <th mat-header-cell *matHeaderCellDef > Completed Date </th>
+              <td mat-cell *matCellDef="let element"> {{(element?.cmpltdDate | dateFormatPipe) || '-'}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          <mat-paginator #paginator [length]="pageIndex" [pageSizeOptions]="[5,10,20,30]" [pageSize]="10" showFirstLastButtons>
+          </mat-paginator>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-3">
+    <div class="card" style="height: 282px;">
+      <div class="card-header">
+      </div>
+      <div class="card-body">
+        <label for="reqNumber">Request Number</label>
+        <input type="text" class="form-control" id="reqNumber" [(ngModel)]="reqNumber"
+          placeholder="Enter Request Number">
+        <button type="submit" style="margin-top: 10px;" class="btn btn-sm btn-primary" type="submit"
+          (click)="gotosaveEditRightsWithRequestNumber('')" [disabled]="!reqNumber"><i class="fa fa-dot-circle-o"></i>
+          Search</button>
+      </div>
+    </div>
+  </div>
+</div>

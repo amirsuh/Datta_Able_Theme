@@ -42,6 +42,11 @@ const routes: Routes = [
         path: 'financial-portal',
         loadChildren: () => import('./financial-portal/financial-portal.module').then(m => m.FinancialPortalModule),
         canActivate: [AuthGaurdService]
+      },
+      {
+        path: 'edit-rights',
+        loadChildren: () => import('./edit-rights/edit-rights.module').then(m => m.EditRightsModule),
+        canActivate: [AuthGaurdService]
       }
     ]
   },

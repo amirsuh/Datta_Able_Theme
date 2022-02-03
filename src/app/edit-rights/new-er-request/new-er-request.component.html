@@ -1,0 +1,87 @@
+<div class="card-body">
+  <div class="row col-md-12">
+    <div class="card col-md-12" style="height: 430px;margin-bottom: 1.0rem;">
+      <div class="card-body" style="height: 132px;">
+        <form  [formGroup]="selectCategoryForm" (ngSubmit)="submitCategory(selectCategoryForm.value.proposalId)">
+          <div class="row" >
+            <div class="form-group col-sm-6">
+              <label for="proposalId">Proposal Number</label>
+              <input type="text" class="form-control" id="proposalId" formControlName="proposalId" placeholder="Enter your proposal Number"
+              [ngClass]="{ 'is-invalid': submitted && f.proposalId.errors }">
+              <div *ngIf="submitted && f.proposalId.errors" class="invalid-feedback">
+                <div *ngIf="f.proposalId.errors.required">Please Enter Proposal Number</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group   col-md-6">
+              <label for="categoryId">Category</label>
+              <select class="form-control" formControlName="categoryId"
+                (change)="changeCategory($event.target.value)"
+                [ngClass]="{ 'is-invalid': submitted && f.categoryId.errors }">
+                <option value=''>Select</option>
+                <option value='{{cat.categoryCode}}' *ngFor="let cat of categoryData">{{cat.categoryName}}</option>
+              </select>
+              <div *ngIf="submitted && f.categoryId.errors" class="invalid-feedback">
+                <div *ngIf="f.categoryId.errors.required">Please Select the Category</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group col-md-6" *ngIf='!isReason && subCategory.length!=0' >
+              <label for="subCategoryID">Sub-category</label>
+              <select class="form-control" formControlName="subCategoryID"
+                [ngClass]="{ 'is-invalid': submitted && f.subCategoryID.errors }">
+                <option value=''>Select</option>
+                <option value='{{subCat.code}}' *ngFor="let subCat of subCategory">{{subCat.name}}</option>
+              </select>
+              <div *ngIf="submitted && f.subCategoryID.errors" class="invalid-feedback">
+                <div *ngIf="f.subCategoryID.errors.required">Please Select the Sub-Category</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group col-md-6" *ngIf='isReason'>
+              <label for="reason">Reason</label>
+              <select class="form-control" formControlName="reason"
+                [ngClass]="{ 'is-invalid': submitted && f.reason.errors }">
+                <option value=''>Select</option>
+                <option value='{{rea.code}}' *ngFor="let rea of reason">{{rea.name}}</option>
+              </select>
+              <div *ngIf="submitted && f.reason.errors" class="invalid-feedback">
+                <div *ngIf="f.reason.errors.required">Please Select the Reason</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group col-md-6" *ngIf='isFundTransfer'>
+              <label for="fromNumber">From proposal Number</label>
+              <input type="number" class="form-control" id="fromNumber" formControlName="fromNumber"
+                placeholder="Enter From proposal Number" [ngClass]="{ 'is-invalid': submitted && f.fromNumber.errors }">
+              <div *ngIf="submitted && f.fromNumber.errors" class="invalid-feedback">
+                <div *ngIf="f.fromNumber.errors.required">Please Enter From proposal Number</div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-6" *ngIf='isFundTransfer'>
+              <label for="toNumber">To Proposal Number</label>
+              <input type="number" class="form-control" id="toNumber" formControlName="toNumber"
+                placeholder="Enter To Proposal Number" [ngClass]="{ 'is-invalid': submitted && f.toNumber.errors }" readonly>
+              <div *ngIf="submitted && f.toNumber.errors" class="invalid-feedback">
+                <div *ngIf="f.toNumber.errors.required">Please Enter To Proposal Number</div>
+              </div>
+            </div>
+
+          </div>
+          <button type="submit" class="btn btn-sm btn-primary" type="submit" (click)="submitErRequest(selectCategoryForm.value.proposalId)" ><i
+              class="fa fa-dot-circle-o"></i>
+            Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

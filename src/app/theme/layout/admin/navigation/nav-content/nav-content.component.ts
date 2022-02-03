@@ -6,6 +6,7 @@ import { LoginService } from 'src/app/demo/pages/authentication/service/login.se
 import { UserService } from 'src/app/demo/pages/authentication/service/user.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
+import { kill } from 'process';
 export interface INavData {
   name?: string;
   mnuCode?: string;
@@ -125,7 +126,7 @@ console.log(event.url)
               let test = {
                     id:  prntMnuList[j].dispName,
                     title:  prntMnuList[j].dispName,
-                    type: 'item',
+                    type: prntMnuList[j].childMenu.length == 0 ? 'item' :  'collapse',
                     url: prntMnuList[j].actnUrl,
                     icon: 'feather icon-home',
                     classes: 'nav-item',
@@ -138,9 +139,11 @@ console.log(event.url)
                 childMenuList.sort((a,b) => a.srtOrd > (b.srtOrd));
                 for (let k= 0; k < childMenuList.length; k++) {
                   let child = {
-                    name: childMenuList[k].dispName,
+                    id: childMenuList[k].dispName,
+                    title:  childMenuList[k].dispName,
                     url: childMenuList[k].actnUrl,
-                    icon: 'icon-pencil',
+                    type: 'item',
+                    classes: 'nav-item',
                     // attributes: { disabled: true }
                   }
                   test["children"].push(child)
